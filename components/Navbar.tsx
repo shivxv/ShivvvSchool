@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { Button } from './UI/Button';
-import logoUrl from '../assets/logo.svg';
+import logoUrl from '../Assets/logo.svg';
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
