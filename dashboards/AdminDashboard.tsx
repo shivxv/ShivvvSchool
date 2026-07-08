@@ -1,18 +1,12 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { analyticalRevenueData, mockNotices } from '../data/mockData';
 import { Card } from '../components/UI/Card';
 import { Table } from '../components/UI/Table';
 import { Badge } from '../components/UI/Badge';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { TrendingUp, Users, BookOpen, AlertCircle } from 'lucide-react';
 
 export const AdminDashboard: React.FC = () => {
-  const { data: chartMetrics } = useQuery({
-    queryKey: ['adminAnalytics'],
-    queryFn: () => analyticalRevenueData,
-    initialData: analyticalRevenueData
-  });
+  const chartMetrics = analyticalRevenueData;
 
   return (
     <div className="space-y-10">
@@ -46,25 +40,24 @@ export const AdminDashboard: React.FC = () => {
         </Card>
       </div>
 
-      {/* High-Performance Recharts Render Block */}
       <Card hoverEffect={false} className="p-6 space-y-4">
         <h3 className="text-lg font-bold dark:text-white">Remittance Streams & Enrollment Projections</h3>
-        <div className="h-80 w-full pt-4">
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={chartMetrics} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-              <defs>
-                <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#2563EB" stopOpacity={0.2}/>
-                  <stop offset="95%" stopColor="#2563EB" stopOpacity={0}/>
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
-              <XAxis dataKey="month" stroke="#94A3B8" fontSize={12} tickLine={false} />
-              <YAxis stroke="#94A3B8" fontSize={12} tickLine={false} />
-              <Tooltip />
-              <Area type="monotone" dataKey="revenue" stroke="#2563EB" strokeWidth={2.5} fillOpacity={1} fill="url(#colorRevenue)" />
-            </AreaChart>
-          </ResponsiveContainer>
+        <div className="grid gap-4 md:grid-cols-2">
+          {chartMetrics.map((item) => (
+            <div key={item.month} className="rounded-3xl border border-gray-100 dark:border-gray-800 p-5 bg-white dark:bg-slate-900">
+              <div className="flex items-center justify-between gap-4">
+                <p className="text-sm text-gray-500 dark:text-gray-400">{item.month}</p>
+                <span className="text-xs uppercase tracking-[0.18em] text-brand-primary">Projected</span>
+              </div>
+              <div className="mt-4 space-y-2">
+                <div className="text-3xl font-bold dark:text-white">₹{item.revenue.toLocaleString()}</div>
+                <div className="text-sm text-gray-500 dark:text-gray-400">Increase: {item.growth}%</div>
+                <div className="h-3 mt-4 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
+                  <div className="h-full bg-brand-primary rounded-full" style={{ width: `${item.growth}%` }} />
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </Card>
 

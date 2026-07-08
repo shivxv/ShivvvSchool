@@ -44,10 +44,10 @@ export const mockNotices: Notice[] = [
 ];
 
 export const analyticalRevenueData = [
-  { month: 'Jan', revenue: 420000, admissions: 120 },
-  { month: 'Feb', revenue: 510000, admissions: 150 },
-  { month: 'Mar', revenue: 680000, admissions: 240 },
-  { month: 'Apr', revenue: 950000, admissions: 380 },
-  { month: 'May', revenue: 720000, admissions: 190 },
-  { month: 'Jun', revenue: 890000, admissions: 290 }
+  { month: 'Jan', revenue: 420000, admissions: 120, growth: 12 },
+  { month: 'Feb', revenue: 510000, admissions: 150, growth: 15 },
+  { month: 'Mar', revenue: 680000, admissions: 240, growth: 22 },
+  { month: 'Apr', revenue: 950000, admissions: 380, growth: 28 },
+  { month: 'May', revenue: 720000, admissions: 190, growth: 18 },
+  { month: 'Jun', revenue: 890000, admissions: 290, growth: 24 }
 ];

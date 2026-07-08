@@ -5,7 +5,6 @@ import * as z from 'zod';
 import { Input } from '../components/UI/Input';
 import { Button } from '../components/UI/Button';
 import { Card } from '../components/UI/Card';
-import toast from 'react-hot-toast';
 
 const admissionSchema = z.object({
   studentName: z.string().min(3, 'Full student legal identifier must span minimum 3 structural indices'),
@@ -24,7 +23,7 @@ export const AdmissionForm: React.FC = () => {
   const onSubmissionExecution = async (values: AdmissionFormValues) => {
     await new Promise(resolve => setTimeout(resolve, 1400));
     console.log('Ingested Secure Admission Metadata:', values);
-    toast.success('Registration document added successfully to our processing queue!');
+    window.alert('Registration document added successfully to our processing queue!');
     reset();
   };
 

@@ -1,20 +1,14 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { mockClasses, ClassStructure } from '../data/mockData';
 import { Card } from '../components/UI/Card';
 import { Badge } from '../components/UI/Badge';
 import { FileText, Users, Landmark } from 'lucide-react';
-import toast from 'react-hot-toast';
 
 export const Classes: React.FC = () => {
-  const { data: classes = [] } = useQuery<ClassStructure[]>({
-    queryKey: ['classesData'],
-    queryFn: async () => mockClasses,
-    initialData: mockClasses
-  });
+  const classes: ClassStructure[] = mockClasses;
 
   const handleSyllabusDownload = (className: string) => {
-    toast.success(`Download initiated: Schema syllabus manifest for ${className}`);
+    window.alert(`Download initiated: Schema syllabus manifest for ${className}`);
   };
 
   return (

@@ -6,7 +6,6 @@ import { Input } from '../components/UI/Input';
 import { Button } from '../components/UI/Button';
 import { Card } from '../components/UI/Card';
 import { CreditCard, ShieldCheck } from 'lucide-react';
-import toast from 'react-hot-toast';
 
 const paymentSchema = z.object({
   admissionNumber: z.string().min(4, 'Registration index must contain at least 4 alphanumeric markers'),
@@ -24,7 +23,7 @@ export const OnlineFeePayment: React.FC = () => {
 
   const executeFinancialTransaction = async (values: PaymentFormValues) => {
     await new Promise(resolve => setTimeout(resolve, 1800));
-    toast.success(`Transaction of ₹${Number(values.amount).toLocaleString()} cleared via Shiv Academy secure payment gateway!`);
+    window.alert(`Transaction of ₹${Number(values.amount).toLocaleString()} cleared via Shiv Academy secure payment gateway!`);
     reset();
   };
 

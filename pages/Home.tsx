@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Award, Cpu } from 'lucide-react';
 import { Button } from '../components/UI/Button';
 import { Card } from '../components/UI/Card';
@@ -43,10 +42,7 @@ export const Home: React.FC = () => {
         <div className="flex-1 relative w-full flex justify-center">
           <div className="absolute top-0 -left-4 w-72 h-72 bg-brand-primary/20 rounded-full blur-3xl" />
           <div className="absolute bottom-0 -right-4 w-72 h-72 bg-brand-secondary/20 rounded-full blur-3xl" />
-          <motion.img
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6 }}
+          <img
             src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80"
             alt="Vanguard Academy Campus Architecture"
             className="rounded-3xl shadow-2xl relative z-10 w-full max-w-lg object-cover aspect-[4/3]"

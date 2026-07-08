@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { mockFaculty, Faculty as FacultyType } from '../data/mockData';
 import { Card } from '../components/UI/Card';
 import { Input } from '../components/UI/Input';
@@ -8,11 +7,7 @@ import { Mail, Search, Briefcase } from 'lucide-react';
 export const Faculty: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const { data: facultyList = [] } = useQuery<FacultyType[]>({
-    queryKey: ['facultyData'],
-    queryFn: async () => mockFaculty,
-    initialData: mockFaculty
-  });
+  const facultyList: FacultyType[] = mockFaculty;
 
   const filteredFaculty = facultyList.filter(f =>
     f.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

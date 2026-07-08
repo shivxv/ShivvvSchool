@@ -1,19 +1,15 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { Card } from '../components/UI/Card';
 import { Table } from '../components/UI/Table';
 import { Badge } from '../components/UI/Badge';
 import { BookOpen, Calendar, Clock, GraduationCap } from 'lucide-react';
 
+const assignments = [
+  { id: 'a1', subject: 'Advanced Physics', task: 'Quantum Mechanics Problem Set 4', due: '2026-07-12', status: 'Pending' },
+  { id: 'a2', subject: 'Computer Science', task: 'Implement DFS Graph Traversal in Java', due: '2026-07-10', status: 'Completed' },
+];
+
 export const StudentDashboard: React.FC = () => {
-  // Example query hook for tracking active homework modules
-  const { data: assignments = [] } = useQuery({
-    queryKey: ['studentAssignments'],
-    queryFn: async () => [
-      { id: 'a1', subject: 'Advanced Physics', task: 'Quantum Mechanics Problem Set 4', due: '2026-07-12', status: 'Pending' },
-      { id: 'a2', subject: 'Computer Science', task: 'Implement DFS Graph Traversal in Java', due: '2026-07-10', status: 'Completed' },
-    ]
-  });
 
   return (
     <div className="space-y-10">
