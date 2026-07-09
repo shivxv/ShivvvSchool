@@ -1,12 +1,19 @@
-import React from 'react';
-import { analyticalRevenueData, mockNotices } from '../data/mockData';
+import React, { useEffect, useState } from 'react';
 import { Card } from '../components/UI/Card';
 import { Table } from '../components/UI/Table';
 import { Badge } from '../components/UI/Badge';
 import { TrendingUp, Users, BookOpen, AlertCircle } from 'lucide-react';
+import { fetchAnalyticalRevenueData, fetchNotices } from '../data/api';
+import { Notice } from '../data/mockData';
 
 export const AdminDashboard: React.FC = () => {
-  const chartMetrics = analyticalRevenueData;
+  const [chartMetrics, setChartMetrics] = useState<any[]>([]);
+  const [notices, setNotices] = useState<Notice[]>([]);
+
+  useEffect(() => {
+    fetchAnalyticalRevenueData().then(setChartMetrics);
+    fetchNotices().then(setNotices);
+  }, []);
 
   return (
     <div className="space-y-10">
@@ -64,16 +71,20 @@ export const AdminDashboard: React.FC = () => {
       {/* Embedded Action Logs Grid */}
       <div className="space-y-4">
         <h3 className="text-lg font-bold dark:text-white flex items-center gap-2"><AlertCircle className="h-5 w-5 text-brand-accent" /> Active Registrar Circular Announcements</h3>
-        <Table headers={['System Reference ID', 'Category Allocation', 'Published Date', 'Summary Context']}>
-          {mockNotices.map((notice) => (
-            <tr key={notice.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
-              <td className="px-6 py-4 font-mono text-xs text-brand-primary">{notice.id}</td>
-              <td className="px-6 py-4"><Badge variant={notice.category === 'Admission' ? 'info' : 'warning'}>{notice.category}</Badge></td>
-              <td className="px-6 py-4 text-xs font-medium text-gray-500">{notice.date}</td>
-              <td className="px-6 py-4 max-w-sm truncate text-gray-600 dark:text-gray-300">{notice.description}</td>
-            </tr>
-          ))}
-        </Table>
+        {notices.length === 0 ? (
+          <div className="text-gray-400">Loading notices...</div>
+        ) : (
+          <Table headers={['System Reference ID', 'Category Allocation', 'Published Date', 'Summary Context']}>
+            {notices.map((notice) => (
+              <tr key={notice.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
+                <td className="px-6 py-4 font-mono text-xs text-brand-primary">{notice.id}</td>
+                <td className="px-6 py-4"><Badge variant={notice.category === 'Admission' ? 'info' : 'warning'}>{notice.category}</Badge></td>
+                <td className="px-6 py-4 text-xs font-medium text-gray-500">{notice.date}</td>
+                <td className="px-6 py-4 max-w-sm truncate text-gray-600 dark:text-gray-300">{notice.description}</td>
+              </tr>
+            ))}
+          </Table>
+        )}
       </div>
     </div>
   );

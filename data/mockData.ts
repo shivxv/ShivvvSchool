@@ -26,6 +26,74 @@ export interface Notice {
   description: string;
 }
 
+export interface HomeMetric {
+  label: string;
+  total: string;
+}
+
+export interface FeatureCard {
+  title: string;
+  description: string;
+  variant: 'primary' | 'secondary' | 'accent';
+}
+
+export interface Assignment {
+  id: string;
+  subject: string;
+  task: string;
+  due: string;
+  status: 'Pending' | 'Completed' | 'Overdue';
+}
+
+export const homeMetrics: HomeMetric[] = [
+  { label: 'Enrolled Academic Scholars', total: '5,000+' },
+  { label: 'World-Class Educators', total: '250+' },
+  { label: 'Smart Enabled Classrooms', total: '100+' },
+  { label: 'Successful Graduation Rate', total: '98%' }
+];
+
+export const homeFeatures: FeatureCard[] = [
+  {
+    title: 'Impeccable Safety Systems',
+    description: 'Continuous campus monitoring protocols paired with secure credentials storage architecture access.',
+    variant: 'primary'
+  },
+  {
+    title: 'Smart Technical Infrastructure',
+    description: 'Immersive laboratory environments optimized for complex problem solving and creative expression.',
+    variant: 'secondary'
+  },
+  {
+    title: 'Validated Mastery Pedagogy',
+    description: 'Curriculum plans focused on deep long-term comprehension rather than superficial examination pacing.',
+    variant: 'accent'
+  }
+];
+
+export const aboutHighlights: FeatureCard[] = [
+  {
+    title: 'Our Mission',
+    description: 'To offer an elite learning ecosystem where critical logical deduction paths intersect with creative, real-world skill execution strategies.',
+    variant: 'primary'
+  },
+  {
+    title: 'Our Vision',
+    description: 'To build globally recognized digital learning models that produce versatile leaders equipped for tomorrow\'s economic challenges.',
+    variant: 'secondary'
+  },
+  {
+    title: 'Core Values',
+    description: 'Integrity first, continuous scientific discovery, civic accountability models, and a commitment to radical design iteration across all initiatives.',
+    variant: 'accent'
+  }
+];
+
+export const studentAssignments: Assignment[] = [
+  { id: 'a1', subject: 'Advanced Physics', task: 'Quantum Mechanics Problem Set 4', due: '2026-07-12', status: 'Pending' },
+  { id: 'a2', subject: 'Computer Science', task: 'Implement DFS Graph Traversal in Java', due: '2026-07-10', status: 'Completed' },
+  { id: 'a3', subject: 'Mathematics', task: 'Calculus Revision Notes and Assessment', due: '2026-07-15', status: 'Pending' }
+];
+
 export const mockFaculty: Faculty[] = [
   { id: '1', name: 'Dr. Arindam Das', role: 'Head of Department', department: 'Science', qualification: 'Ph.D. in Physics', experience: '14 Years', email: 'a.das@edu.in', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80' },
   { id: '2', name: 'Mrs. Priya Sharma', role: 'Senior Lecturer', department: 'Mathematics', qualification: 'M.Sc. Applied Mathematics', experience: '10 Years', email: 'p.sharma@edu.in', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=80' },

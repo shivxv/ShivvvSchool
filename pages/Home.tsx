@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowRight, Shield, Award, Cpu } from 'lucide-react';
 import { Button } from '../components/UI/Button';
 import { Card } from '../components/UI/Card';
 import { Link } from 'react-router-dom';
+import { fetchHomeMetrics, fetchHomeFeatures } from '../data/api';
+import { FeatureCard, HomeMetric } from '../data/mockData';
 
 export const Home: React.FC = () => {
-  const metrics = [
-    { label: 'Enrolled Academic Scholars', total: '5,000+' },
-    { label: 'World-Class Educators', total: '250+' },
-    { label: 'Smart Enabled Classrooms', total: '100+' },
-    { label: 'Successful Graduation Rate', total: '98%' },
-  ];
+  const [metrics, setMetrics] = useState<HomeMetric[]>([]);
+  const [features, setFeatures] = useState<FeatureCard[]>([]);
+
+  useEffect(() => {
+    fetchHomeMetrics().then(setMetrics);
+    fetchHomeFeatures().then(setFeatures);
+  }, []);
 
   return (
     <div className="space-y-24">
@@ -52,12 +55,16 @@ export const Home: React.FC = () => {
 
       {/* Numerical Metrics Strip */}
       <section className="grid grid-cols-2 lg:grid-cols-4 gap-6 bg-white dark:bg-brand-dark/40 p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-premium">
-        {metrics.map((m, idx) => (
-          <div key={idx} className="text-center space-y-1">
-            <h3 className="text-3xl sm:text-4xl font-extrabold text-brand-primary">{m.total}</h3>
-            <p className="text-xs sm:text-sm font-medium text-gray-400 uppercase tracking-wider">{m.label}</p>
-          </div>
-        ))}
+        {metrics.length === 0 ? (
+          <div className="col-span-full text-center text-sm text-gray-400">Loading metrics...</div>
+        ) : (
+          metrics.map((m, idx) => (
+            <div key={idx} className="text-center space-y-1">
+              <h3 className="text-3xl sm:text-4xl font-extrabold text-brand-primary">{m.total}</h3>
+              <p className="text-xs sm:text-sm font-medium text-gray-400 uppercase tracking-wider">{m.label}</p>
+            </div>
+          ))
+        )}
       </section>
 
       {/* Structural Pillars Block */}
@@ -67,22 +74,20 @@ export const Home: React.FC = () => {
           <p className="text-gray-400 max-w-xl mx-auto">Engineered to support academic breakthroughs and personal growth.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <Card className="space-y-4">
-            <div className="p-3 bg-brand-primary/10 text-brand-primary rounded-xl w-fit"><Shield className="h-6 w-6" /></div>
-            <h3 className="text-xl font-bold dark:text-white">Impeccable Safety Systems</h3>
-            <p className="text-gray-500 text-sm leading-relaxed">Continuous campus monitoring protocols paired with secure credentials storage architecture access.</p>
-          </Card>
-          <Card className="space-y-4">
-            <div className="p-3 bg-brand-secondary/10 text-brand-secondary rounded-xl w-fit"><Cpu className="h-6 w-6" /></div>
-            <h3 className="text-xl font-bold dark:text-white">Smart Technical Infrastructure</h3>
-            <p className="text-gray-500 text-sm leading-relaxed">Immersive laboratory environments optimized for complex problem solving and creative expression.</p>
-          </Card>
-          <Card className="space-y-4">
-            <div className="p-3 bg-brand-accent/10 text-brand-accent rounded-xl w-fit"><Award className="h-6 w-6" /></div>
-            <h3 className="text-xl font-bold dark:text-white">Validated Mastery Pedagogy</h3>
-            <p className="text-gray-500 text-sm leading-relaxed">Curriculum plans focused on deep long-term comprehension rather than superficial examination pacing.</p>
-          </Card>
-        </div>
+        {features.length === 0 ? (
+          <div className="col-span-full text-center text-sm text-gray-400">Loading features...</div>
+        ) : (
+          features.map((feature, idx) => (
+            <Card key={idx} className="space-y-4">
+              <div className={`p-3 rounded-xl w-fit ${feature.variant === 'primary' ? 'bg-brand-primary/10 text-brand-primary' : feature.variant === 'secondary' ? 'bg-brand-secondary/10 text-brand-secondary' : 'bg-brand-accent/10 text-brand-accent'}`}>
+                {feature.variant === 'primary' ? <Shield className="h-6 w-6" /> : feature.variant === 'secondary' ? <Cpu className="h-6 w-6" /> : <Award className="h-6 w-6" />}
+              </div>
+              <h3 className="text-xl font-bold dark:text-white">{feature.title}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed">{feature.description}</p>
+            </Card>
+          ))
+        )}
+      </div>
       </section>
     </div>
   );

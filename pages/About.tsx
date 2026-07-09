@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card } from '../components/UI/Card';
+import { fetchAboutHighlights } from '../data/api';
+import { FeatureCard } from '../data/mockData';
 import { Target, Eye, Compass } from 'lucide-react';
 
 export const About: React.FC = () => {
+  const [highlights, setHighlights] = useState<FeatureCard[]>([]);
+
+  useEffect(() => {
+    fetchAboutHighlights().then(setHighlights);
+  }, []);
+
   return (
     <div className="space-y-16">
       <div className="text-center space-y-4">
@@ -11,21 +19,19 @@ export const About: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <Card className="space-y-4 text-center items-center flex flex-col">
-          <div className="p-4 bg-brand-primary/10 text-brand-primary rounded-full"><Target className="h-8 w-8" /></div>
-          <h3 className="text-xl font-bold dark:text-white">Our Mission</h3>
-          <p className="text-sm text-gray-500 leading-relaxed">To offer an elite learning ecosystem where critical logical deduction paths intersect with creative, real-world skill execution strategies.</p>
-        </Card>
-        <Card className="space-y-4 text-center items-center flex flex-col">
-          <div className="p-4 bg-brand-secondary/10 text-brand-secondary rounded-full"><Eye className="h-8 w-8" /></div>
-          <h3 className="text-xl font-bold dark:text-white">Our Vision</h3>
-          <p className="text-sm text-gray-500 leading-relaxed">To build globally recognized digital learning models that produce versatile leaders equipped for tomorrow's economic challenges.</p>
-        </Card>
-        <Card className="space-y-4 text-center items-center flex flex-col">
-          <div className="p-4 bg-brand-accent/10 text-brand-accent rounded-full"><Compass className="h-8 w-8" /></div>
-          <h3 className="text-xl font-bold dark:text-white">Core Values</h3>
-          <p className="text-sm text-gray-500 leading-relaxed">Integrity first, continuous scientific discovery, civic accountability models, and a commitment to radical design iteration across all initiatives.</p>
-        </Card>
+        {highlights.length === 0 ? (
+          <div className="col-span-full text-center text-sm text-gray-400">Loading institutional highlights...</div>
+        ) : (
+          highlights.map((feature, idx) => (
+            <Card key={idx} className="space-y-4 text-center items-center flex flex-col">
+              <div className={`p-4 rounded-full ${feature.variant === 'primary' ? 'bg-brand-primary/10 text-brand-primary' : feature.variant === 'secondary' ? 'bg-brand-secondary/10 text-brand-secondary' : 'bg-brand-accent/10 text-brand-accent'}`}>
+                {feature.variant === 'primary' ? <Target className="h-8 w-8" /> : feature.variant === 'secondary' ? <Eye className="h-8 w-8" /> : <Compass className="h-8 w-8" />}
+              </div>
+              <h3 className="text-xl font-bold dark:text-white">{feature.title}</h3>
+              <p className="text-sm text-gray-500 leading-relaxed">{feature.description}</p>
+            </Card>
+          ))
+        )}
       </div>
 
       <div className="bg-white dark:bg-brand-dark/40 p-8 rounded-3xl border border-gray-100 dark:border-gray-800 space-y-6">

@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
-import { mockFaculty, Faculty as FacultyType } from '../data/mockData';
+import React, { useState, useEffect } from 'react';
+import { fetchFaculty } from '../data/api';
+import { Faculty as FacultyType } from '../data/mockData';
 import { Card } from '../components/UI/Card';
 import { Input } from '../components/UI/Input';
 import { Mail, Search, Briefcase } from 'lucide-react';
 
 export const Faculty: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [facultyList, setFacultyList] = useState<FacultyType[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const facultyList: FacultyType[] = mockFaculty;
+  useEffect(() => {
+    fetchFaculty().then((data) => {
+      setFacultyList(data);
+      setIsLoading(false);
+    });
+  }, []);
 
   const filteredFaculty = facultyList.filter(f =>
     f.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -32,24 +40,32 @@ export const Faculty: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {filteredFaculty.map((teacher) => (
-          <Card key={teacher.id} className="p-0 flex flex-col justify-between">
-            <img src={teacher.image} alt={teacher.name} className="w-full h-56 object-cover" />
-            <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-              <div className="space-y-1">
-                <span className="text-xs font-semibold text-brand-primary bg-brand-primary/10 px-2.5 py-1 rounded-md">{teacher.department}</span>
-                <h3 className="text-xl font-bold dark:text-white pt-2">{teacher.name}</h3>
-                <p className="text-sm text-gray-400 font-medium">{teacher.role}</p>
-              </div>
-              <div className="space-y-2 pt-2 border-t border-gray-100 dark:border-gray-800 text-xs text-gray-500 dark:text-gray-400">
-                <div className="flex items-center gap-2"><Briefcase className="h-4 w-4 text-brand-secondary" /> {teacher.experience} Experience</div>
-                <div className="flex items-center gap-2"><Mail className="h-4 w-4 text-brand-accent" /> {teacher.email}</div>
-              </div>
-            </div>
-          </Card>
-        ))}
-      </div>
+      {isLoading ? (
+        <div className="text-center text-gray-400">Loading faculty directory...</div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {filteredFaculty.length === 0 ? (
+            <div className="col-span-full text-center text-gray-400">No faculty found for your search.</div>
+          ) : (
+            filteredFaculty.map((teacher) => (
+              <Card key={teacher.id} className="p-0 flex flex-col justify-between">
+                <img src={teacher.image} alt={teacher.name} className="w-full h-56 object-cover" />
+                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                  <div className="space-y-1">
+                    <span className="text-xs font-semibold text-brand-primary bg-brand-primary/10 px-2.5 py-1 rounded-md">{teacher.department}</span>
+                    <h3 className="text-xl font-bold dark:text-white pt-2">{teacher.name}</h3>
+                    <p className="text-sm text-gray-400 font-medium">{teacher.role}</p>
+                  </div>
+                  <div className="space-y-2 pt-2 border-t border-gray-100 dark:border-gray-800 text-xs text-gray-500 dark:text-gray-400">
+                    <div className="flex items-center gap-2"><Briefcase className="h-4 w-4 text-brand-secondary" /> {teacher.experience} Experience</div>
+                    <div className="flex items-center gap-2"><Mail className="h-4 w-4 text-brand-accent" /> {teacher.email}</div>
+                  </div>
+                </div>
+              </Card>
+            ))
+          )}
+        </div>
+      )}
     </div>
   );
 };
