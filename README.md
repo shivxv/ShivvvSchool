@@ -106,7 +106,7 @@ This project is licensed under the MIT License.
 
 ## 👤 Author
 
-**Shiv Kumar**
+**Shiv Narayan Sharma**
 
 GitHub: https://github.com/shivxv
 
