@@ -39,7 +39,7 @@ export const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center gap-3 group">
-            <img src={logoUrl} alt="Shiv Academy logo" className="h-11 w-11 rounded-2xl bg-white p-2 shadow-md" />
+            <img src={logoUrl} alt="Shiv Academy logo" className="h-11 w-11 rounded-2xl bg-white p-2 shadow-md transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110" />
             <span className="font-bold text-xl tracking-tight bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
               Shiv Academy
             </span>

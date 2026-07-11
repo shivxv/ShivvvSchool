@@ -21,3 +21,43 @@
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(18px, -22px, 0) scale(1.08); }
+}
+
+@keyframes drift-reverse {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-16px, 20px, 0) scale(0.94); }
+}
+
+@keyframes sheen {
+  0% { transform: translateX(-140%) skewX(-20deg); }
+  55%, 100% { transform: translateX(260%) skewX(-20deg); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.15); }
+  50% { box-shadow: 0 0 0 13px rgba(79, 70, 229, 0); }
+}
+
+.motion-page { animation: rise-in 520ms ease-out both; }
+.motion-enter { animation: rise-in 650ms ease-out both; }
+.motion-delay-1 { animation-delay: 110ms; }
+.motion-delay-2 { animation-delay: 220ms; }
+.motion-delay-3 { animation-delay: 330ms; }
+.motion-float { animation: drift 8s ease-in-out infinite; }
+.motion-float-reverse { animation: drift-reverse 9s ease-in-out infinite; }
+.motion-sheen { position: relative; overflow: hidden; }
+.motion-sheen::after { content: ''; position: absolute; inset: -40% auto -40% 0; width: 30%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.46), transparent); animation: sheen 5.5s ease-in-out infinite; pointer-events: none; }
+.motion-pulse { animation: glow-pulse 2.6s ease-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+}
