@@ -12,7 +12,7 @@ export const Sidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="w-64 fixed h-[calc(100vh-5rem)] bg-white dark:bg-brand-dark border-r border-gray-100 dark:border-gray-800 hidden lg:flex flex-col justify-between p-6">
+    <aside className="motion-enter w-64 fixed h-[calc(100vh-5rem)] bg-white dark:bg-brand-dark border-r border-gray-100 dark:border-gray-800 hidden lg:flex flex-col justify-between p-6">
       <div className="flex flex-col gap-1.5">
         <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 px-3">Management Workspace</p>
         {menuItems.map((item) => {

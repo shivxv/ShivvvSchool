@@ -12,7 +12,7 @@ export const Button: React.FC<ButtonProps> = ({ children, variant = 'primary', s
     <button
       className={twMerge(
         clsx(
-          "rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 flex items-center justify-center gap-2",
+          "button-motion rounded-xl font-medium transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-offset-2 flex items-center justify-center gap-2",
           {
             'bg-brand-primary text-white hover:bg-blue-700 focus:ring-brand-primary': variant === 'primary',
             'bg-brand-secondary text-white hover:bg-teal-600 focus:ring-brand-secondary': variant === 'secondary',

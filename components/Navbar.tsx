@@ -50,9 +50,9 @@ export const Navbar: React.FC = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`text-sm font-medium transition-colors ${
+                className={`nav-link text-sm font-medium transition-colors ${
                   location.pathname === link.path 
-                    ? 'text-brand-primary' 
+                    ? 'nav-link-active text-brand-primary' 
                     : 'text-gray-600 dark:text-gray-300 hover:text-brand-primary'
                 }`}
               >

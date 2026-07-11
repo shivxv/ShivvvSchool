@@ -58,6 +58,26 @@
 .motion-sheen::after { content: ''; position: absolute; inset: -40% auto -40% 0; width: 30%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.46), transparent); animation: sheen 5.5s ease-in-out infinite; pointer-events: none; }
 .motion-pulse { animation: glow-pulse 2.6s ease-out infinite; }
 
+.motion-page section,
+.motion-page .glass-panel,
+.motion-page > div > h1,
+.motion-page > div > .grid {
+  animation: rise-in 560ms ease-out both;
+}
+
+.motion-page .glass-panel:nth-child(2n) { animation-delay: 80ms; }
+.motion-page .glass-panel:nth-child(3n) { animation-delay: 160ms; }
+.motion-page input,
+.motion-page select { transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+.motion-page input:focus,
+.motion-page select:focus { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(79, 70, 229, 0.12); }
+.nav-link { position: relative; }
+.nav-link::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; border-radius: 999px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 220ms ease; }
+.nav-link:hover::after, .nav-link-active::after { transform: scaleX(1); }
+.button-motion { position: relative; overflow: hidden; }
+.button-motion::after { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 25%, rgba(255,255,255,.28) 48%, transparent 70%); transform: translateX(-120%); transition: transform 500ms ease; }
+.button-motion:hover::after { transform: translateX(120%); }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
 }
