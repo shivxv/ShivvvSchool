@@ -110,6 +110,22 @@ This project is licensed under the MIT License.
 
 GitHub: https://github.com/shivxv
 
+## Backend API
+
+The project includes an Express API with file-backed storage in `server/data.json`.
+
+```bash
+# terminal 1 — API at http://localhost:4000
+npm run server
+
+# terminal 2 — website at http://localhost:5173
+npm run dev
+```
+
+Copy `.env.example` to `.env` before deployment and set a strong `ADMIN_API_KEY`. Public data is available under `/api/home`, `/api/faculty`, `/api/classes`, `/api/notices`, and `/api/analytics/revenue`. Admission and payment requests use `POST /api/admissions` and `POST /api/payments`.
+
+Payment records are stored as **Pending** until a real payment-provider integration confirms them. Administrative create, update, and delete endpoints under `/api/admin/faculty`, `/api/admin/classes`, and `/api/admin/notices` require the `x-admin-key` header.
+
 ---
 
 ⭐ If you like this project, don't forget to star the repository.

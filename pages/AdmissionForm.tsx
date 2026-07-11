@@ -5,6 +5,7 @@ import * as z from 'zod';
 import { Input } from '../components/UI/Input';
 import { Button } from '../components/UI/Button';
 import { Card } from '../components/UI/Card';
+import { submitAdmission } from '../data/api';
 
 const admissionSchema = z.object({
   studentName: z.string().min(3, 'Full student legal identifier must span minimum 3 structural indices'),
@@ -21,10 +22,13 @@ export const AdmissionForm: React.FC = () => {
   });
 
   const onSubmissionExecution = async (values: AdmissionFormValues) => {
-    await new Promise(resolve => setTimeout(resolve, 1400));
-    console.log('Ingested Secure Admission Metadata:', values);
-    window.alert('Registration document added successfully to our processing queue!');
-    reset();
+    try {
+      await submitAdmission(values);
+      window.alert('Registration submitted successfully. Our admissions team will contact you soon.');
+      reset();
+    } catch (error: any) {
+      window.alert(error.response?.data?.message || 'We could not submit your application. Please try again.');
+    }
   };
 
   return (
